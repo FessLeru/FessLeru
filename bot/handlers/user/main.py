@@ -31,7 +31,7 @@ async def start(message: Message):
     current_time = datetime.datetime.now()
     formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
     referral_id = message.text[7:] if message.text[7:] != str(user_id) else None
-    user_role = owner if str(user_id) == EnvKeys.OWNER else 1
+    user_role = owner if str(user_id) in EnvKeys.OWNER else 1
     create_user(telegram_id=user_id, registration_date=current_time, referral_id=referral_id, role=user_role)
     chat = check_channel()
     role_data = check_role(user_id)
@@ -159,7 +159,7 @@ async def item_info_callback_handler(call: CallbackQuery):
         await bot.edit_message_text(
             f'🏪 Товар {item_name}\n'
             f'Описание: {item_info_list["description"]}\n'
-            f'Цена - {item_info_list["price"]}₽\n'
+            f'Цена - {item_info_list["price"]}$\n'
             f'Количество - {round(amount)}шт.',
             chat_id=call.message.chat.id,
             message_id=call.message.message_id,
@@ -168,7 +168,7 @@ async def item_info_callback_handler(call: CallbackQuery):
         await bot.edit_message_text(
             f'🏪 Товар {item_name}\n'
             f'Описание: {item_info_list["description"]}\n'
-            f'Цена - {item_info_list["price"]}₽\n'
+            f'Цена - {item_info_list["price"]}$\n'
             f'Количество - неограниченно',
             chat_id=call.message.chat.id,
             message_id=call.message.message_id,
@@ -195,7 +195,7 @@ async def buy_item_callback_handler(call: CallbackQuery):
             await bot.edit_message_text(chat_id=call.message.chat.id,
                                         message_id=msg,
                                         text=f'✅ Товар куплен. '
-                                             f'<b>Баланс</b>: <i>{new_balance}</i>₽\n\n{value_data["value"]}',
+                                             f'<b>Баланс</b>: <i>{new_balance}</i>$\n\n{value_data["value"]}',
                                         parse_mode='HTML',
                                         reply_markup=back(f'item_{item_name}'))
             user_info = await bot.get_chat(user_id)
@@ -288,7 +288,7 @@ async def bought_item_info_callback_handler(call: CallbackQuery):
     item = get_bought_item_info(item_id)
     await bot.edit_message_text(
         f'<b>Товар</b>: <code>{item["item_name"]}</code>\n'
-        f'<b>Цена</b>: <code>{item["price"]}</code>₽\n'
+        f'<b>Цена</b>: <code>{item["price"]}</code>$\n'
         f'<b>Дата покупки</b>: <code>{item["bought_datetime"]}</code>\n'
         f'<b>Уникальный ID операции</b>: <code>{item["unique_id"]}</code>\n'
         f'<b>Значение</b>:\n<code>{item["value"]}</code>',
@@ -329,8 +329,8 @@ async def profile_callback_handler(call: CallbackQuery):
     items = select_user_items(user_id)
     await bot.edit_message_text(text=f"👤 <b>Профиль</b> — {user.first_name}\n🆔"
                                      f" <b>ID</b> — <code>{user_id}</code>\n"
-                                     f"💳 <b>Баланс</b> — <code>{balance}</code> ₽\n"
-                                     f"💵 <b>Всего пополнено</b> — <code>{overall_balance}</code> ₽\n"
+                                     f"💳 <b>Баланс</b> — <code>{balance}</code> $\n"
+                                     f"💵 <b>Всего пополнено</b> — <code>{overall_balance}</code> $\n"
                                      f" 🎁 <b>Куплено товаров</b> — {items} шт",
                                 chat_id=call.message.chat.id,
                                 message_id=call.message.message_id, reply_markup=profile(items),
@@ -376,11 +376,11 @@ async def process_replenish_balance(message: Message):
     TgConfig.STATE[user_id] = None
     await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
 
-    if not text.isdigit() or int(text) < 20 or int(text) > 10000:
+    if not text.isdigit() or int(text) < 1 or int(text) > 100:
         await bot.edit_message_text(chat_id=message.chat.id,
                                     message_id=message_id,
                                     text="❌ Неверная сумма пополнения. "
-                                         "Сумма пополнения должна быть числом не меньше 20₽ и не более 10 000₽",
+                                         "Сумма пополнения должна быть числом не меньше 1$ и не более 100$",
                                     reply_markup=back('replenish_balance'))
         return
 
@@ -388,7 +388,7 @@ async def process_replenish_balance(message: Message):
     start_operation(user_id, text, label)
     await bot.edit_message_text(chat_id=message.chat.id,
                                 message_id=message_id,
-                                text=f'Вы пополняете баланс на сумму {text}₽. '
+                                text=f'Вы пополняете баланс на сумму {text}$. '
                                      f'Нажмите «Оплатить» для перехода на сайт платежной системы.\n\n'
                                      f'❗️ После оплаты нажмите кнопку «Проверить»',
                                 reply_markup=payment_menu(url, label))
@@ -414,7 +414,7 @@ async def checking_payment(call: CallbackQuery):
                 referral_operation = round(0.05 * operation_value)
                 update_balance(referral_id, referral_operation)
                 await bot.send_message(referral_id,
-                                       f'✅ Вы получили {referral_operation}₽ '
+                                       f'✅ Вы получили {referral_operation}$ '
                                        f'от вашего реферал {call.from_user.first_name}',
                                        reply_markup=close())
 
@@ -422,7 +422,7 @@ async def checking_payment(call: CallbackQuery):
             update_balance(user_id, operation_value)
             await bot.edit_message_text(chat_id=call.message.chat.id,
                                         message_id=message_id,
-                                        text=f'✅ Баланс пополнен на {operation_value}₽',
+                                        text=f'✅ Баланс пополнен на {operation_value}$',
                                         reply_markup=back('profile'))
         else:
             await call.answer(text='❌ Оплата не прошла успешно')

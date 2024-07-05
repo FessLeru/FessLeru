@@ -76,8 +76,8 @@ async def user_profile_view(call: CallbackQuery):
                                 message_id=call.message.message_id,
                                 text=f"👤 <b>Профиль</b> — {user_info.first_name}\n\n🆔"
                                      f" <b>ID</b> — <code>{user_id}</code>\n"
-                                     f"💳 <b>Баланс</b> — <code>{user.balance}</code> ₽\n"
-                                     f"💵 <b>Всего пополнено</b> — <code>{overall_balance}</code> ₽\n"
+                                     f"💳 <b>Баланс</b> — <code>{user.balance}</code> $\n"
+                                     f"💵 <b>Всего пополнено</b> — <code>{overall_balance}</code> $\n"
                                      f"🎁 <b>Куплено товаров</b> — {items} шт\n\n"
                                      f"👤 <b>Реферал</b> — <code>{user.referral_id}</code>\n"
                                      f"👥 <b>Рефералы пользователя</b> — {referrals}\n"
@@ -182,7 +182,7 @@ async def process_replenish_user_balance(message: Message):
         await bot.edit_message_text(chat_id=message.chat.id,
                                     message_id=message_id,
                                     text="❌ Неверная сумма пополнения. "
-                                         "Сумма пополнения должна быть числом не меньше 10₽ и не более 10 000₽",
+                                         "Сумма пополнения должна быть числом не меньше 10$ и не более 10 000$",
                                     reply_markup=back(f'check-user_{user_data}'))
         return
     current_time = datetime.datetime.now()
@@ -192,14 +192,14 @@ async def process_replenish_user_balance(message: Message):
     user_info = await bot.get_chat(user_data)
     await bot.edit_message_text(chat_id=message.chat.id,
                                 message_id=message_id,
-                                text=f'✅ Баланс пользователя {user_info.first_name} пополнен на {msg}₽',
+                                text=f'✅ Баланс пользователя {user_info.first_name} пополнен на {msg}$',
                                 reply_markup=back(f'check-user_{user_data}'))
     admin_info = await bot.get_chat(user_id)
     logger.info(f"Пользователь {user_id} ({admin_info.first_name}) "
                 f"пополнил баланс пользователя {user_data} ({user_info.first_name}) на {msg}р")
     try:
         await bot.send_message(chat_id=user_data,
-                               text=f'✅ Ваш баланс пополнен на {msg}₽',
+                               text=f'✅ Ваш баланс пополнен на {msg}$',
                                reply_markup=close())
     except BotBlocked:
         pass
