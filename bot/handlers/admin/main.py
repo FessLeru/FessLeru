@@ -1,15 +1,15 @@
 from aiogram import Dispatcher
 from aiogram.types import CallbackQuery
 
-from bot.keyboards import console
-from bot.database.methods import check_role
-from bot.misc import TgConfig
+from keyboards import console
+from database.methods import check_role
+from misc import TgConfig
 
-from bot.handlers.admin.broadcast import register_mailing
-from bot.handlers.admin.shop_management_states import register_shop_management
-from bot.handlers.admin.user_management_states import register_user_management
-from bot.handlers.admin.settings_states import register_settings
-from bot.handlers.other import get_bot_user_ids
+from handlers.admin.broadcast import register_mailing
+from handlers.admin.shop_management_states import register_shop_management
+from handlers.admin.user_management_states import register_user_management
+from handlers.admin.settings_states import register_settings
+from handlers.other import get_bot_user_ids
 
 
 async def console_callback_handler(call: CallbackQuery):

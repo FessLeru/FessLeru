@@ -4,14 +4,14 @@ from aiogram import Dispatcher
 from aiogram.types import Message, CallbackQuery
 from aiogram.utils.exceptions import BotBlocked
 
-from bot.keyboards import back, user_manage_check, user_management, user_items_list, close
-from bot.database.methods import check_role, check_user, select_user_operations, select_user_items, \
+from keyboards import back, user_manage_check, user_management, user_items_list, close
+from database.methods import check_role, check_user, select_user_operations, select_user_items, \
     check_role_name_by_id, check_user_referrals, select_bought_items, set_role, create_operation, update_balance, \
     bought_items_list
-from bot.misc import TgConfig
-from bot.database.models import Permission
-from bot.handlers.other import get_bot_user_ids
-from bot.logger_mesh import logger
+from misc import TgConfig
+from database.models import Permission
+from handlers.other import get_bot_user_ids
+from logger_mesh import logger
 
 
 async def user_callback_handler(call: CallbackQuery):

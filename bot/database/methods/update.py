@@ -1,5 +1,5 @@
-from bot.database.models import User, ItemValues, Goods, Categories, Configuration
-from bot.database import Database
+from database.models import User, ItemValues, Goods, Categories, Configuration
+from database import Database
 
 
 def set_role(telegram_id, role) -> None:

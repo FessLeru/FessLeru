@@ -1,22 +1,19 @@
 from yoomoney import Quickpay, Client
 import random
-from bot.misc import EnvKeys
+from misc import EnvKeys
 
-import asyncio
 import base64
 import hashlib
 import json
 import uuid
 
 import aiohttp
-from aiogram import Bot, Dispatcher
-from aiogram.types import Message, ParseMode
-from aiogram.dispatcher.filters import CommandStart
-from bot.database.methods import buy_item, add_bought_item
-from bot.keyboards import back
+from aiogram.types import Message
+from database.methods import buy_item, add_bought_item
+from keyboards import back
 import datetime
-from bot.logger_mesh import logger
-from bot.keyboards.inline import check_payment_kb
+from logger_mesh import logger
+from keyboards.inline import check_payment_kb
 
 
 def quick_pay(message):
@@ -58,8 +55,6 @@ async def make_request(url: str, invoice_data: dict):
             return await response.json()
 
 
-
-
 async def check_invoice_paid(id: str, message, value_data, item_price, user_id, item_name):
     # while True:
     invoice_data = await make_request(
@@ -85,8 +80,6 @@ async def check_invoice_paid(id: str, message, value_data, item_price, user_id, 
         # print("Оплата пока не прошла")
 
         # await asyncio.sleep(5)
-
-
 
 
 async def buy_handler(message: Message, amount, value_data, item_price, user_id, item_name):

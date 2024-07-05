@@ -5,18 +5,18 @@ from aiogram import Dispatcher
 from aiogram.types import Message, CallbackQuery, ChatType
 from aiogram.utils.exceptions import ChatNotFound
 
-from bot.database.methods import select_max_role_id, create_user, check_channel, check_role, check_helper, check_user, \
+from database.methods import select_max_role_id, create_user, check_channel, check_role, check_helper, check_user, \
     get_all_categories, get_all_items, select_bought_items, get_bought_item_info, get_item_info, \
     select_item_values_amount, get_user_balance, get_item_value, buy_item, add_bought_item, buy_item_for_balance, \
     select_user_operations, select_user_items, check_user_referrals, check_rules, start_operation, \
     select_unfinished_operations, get_user_referral, finish_operation, update_balance, create_operation, \
     bought_items_list, check_value
-from bot.handlers.other import get_bot_user_ids, check_sub_channel, get_bot_info
-from bot.keyboards import check_sub, main_menu, categories_list, goods_list, user_items_list, back, item_info, \
+from handlers.other import get_bot_user_ids, check_sub_channel, get_bot_info
+from keyboards import check_sub, main_menu, categories_list, goods_list, user_items_list, back, item_info, \
     profile, rules, payment_menu, close
-from bot.logger_mesh import logger
-from bot.misc import TgConfig, EnvKeys
-from bot.misc.payment import quick_pay, check_payment_status
+from logger_mesh import logger
+from misc import TgConfig, EnvKeys
+from misc.payment import quick_pay, check_payment_status
 
 
 async def start(message: Message):
@@ -215,8 +215,8 @@ async def buy_item_callback_handler(call: CallbackQuery):
                                 reply_markup=back(f'item_{item_name}'))
 
 
-from bot.misc.payment import buy_handler, check_invoice_paid
-from bot.keyboards.inline import check_payment_kb
+from misc.payment import buy_handler, check_invoice_paid
+from keyboards.inline import check_payment_kb
 
 
 async def buy_item_with_crypto_callback_handler(call: CallbackQuery):

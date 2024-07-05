@@ -1,8 +1,8 @@
 import sqlalchemy.exc
 import random
-from bot.database.models import User, ItemValues, Goods, Categories, Configuration, BoughtGoods, \
+from database.models import User, ItemValues, Goods, Categories, Configuration, BoughtGoods, \
     Operations, UnfinishedOperations
-from bot.database import Database
+from database import Database
 
 
 def create_user(telegram_id: int, registration_date, referral_id, role: int = 1) -> None:

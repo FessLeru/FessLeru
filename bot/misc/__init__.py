@@ -1,3 +1,3 @@
-from bot.misc.env import EnvKeys
-from bot.misc.singleton import SingletonMeta
-from bot.misc.config import TgConfig
+from misc.env import EnvKeys
+from misc.singleton import SingletonMeta
+from misc.config import TgConfig

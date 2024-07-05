@@ -4,7 +4,7 @@ import sqlalchemy
 from sqlalchemy import cast, Date
 from sqlalchemy import exc, func
 
-from bot.database.models import Database, User, ItemValues, Goods, Categories, Configuration, Role, BoughtGoods, \
+from database.models import Database, User, ItemValues, Goods, Categories, Configuration, Role, BoughtGoods, \
     Operations, UnfinishedOperations
 
 

@@ -3,12 +3,12 @@ from aiogram import Dispatcher
 from aiogram.types import Message, CallbackQuery
 from aiogram.utils.exceptions import BotBlocked
 
-from bot.keyboards import back, close
-from bot.database.methods import check_role, get_all_users
-from bot.database.models import Permission
-from bot.misc import TgConfig
-from bot.logger_mesh import logger
-from bot.handlers.other import get_bot_user_ids
+from keyboards import back, close
+from database.methods import check_role, get_all_users
+from database.models import Permission
+from misc import TgConfig
+from logger_mesh import logger
+from handlers.other import get_bot_user_ids
 
 
 async def send_message_callback_handler(call: CallbackQuery):

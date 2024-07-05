@@ -1,13 +1,13 @@
 from aiogram import Dispatcher
 from aiogram.types import Message, CallbackQuery
 
-from bot.database.models import Permission
-from bot.keyboards import setting, back, reset_config
-from bot.database.methods import check_role, delete_config, check_channel, update_config, create_config, check_helper, \
+from database.models import Permission
+from keyboards import setting, back, reset_config
+from database.methods import check_role, delete_config, check_channel, update_config, create_config, check_helper, \
     check_rules, check_group
-from bot.misc import TgConfig
-from bot.logger_mesh import logger
-from bot.handlers.other import get_bot_user_ids
+from misc import TgConfig
+from logger_mesh import logger
+from handlers.other import get_bot_user_ids
 
 
 async def settings_callback_handler(call: CallbackQuery):

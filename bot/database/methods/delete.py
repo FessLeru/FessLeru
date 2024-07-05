@@ -1,4 +1,4 @@
-from bot.database.models import Database, Goods, ItemValues, Configuration, Categories, UnfinishedOperations
+from database.models import Database, Goods, ItemValues, Configuration, Categories, UnfinishedOperations
 
 
 def delete_item(item_name) -> None:

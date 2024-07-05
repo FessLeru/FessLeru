@@ -1,1 +1,1 @@
-from bot.keyboards.inline import *
+from keyboards.inline import *

@@ -1,2 +1,2 @@
-from bot.database.models.main import *
+from database.models.main import *
 from .main import register_models

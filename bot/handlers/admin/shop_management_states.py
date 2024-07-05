@@ -4,17 +4,17 @@ from aiogram import Dispatcher
 from aiogram.types import Message, CallbackQuery
 from aiogram.utils.exceptions import ChatNotFound
 
-from bot.database.methods import check_role, select_today_users, select_admins, get_user_count, select_today_orders, \
+from database.methods import check_role, select_today_users, select_admins, get_user_count, select_today_orders, \
     select_all_orders, select_today_operations, select_users_balance, select_all_operations, select_count_items, \
     select_count_goods, select_count_categories, select_count_bought_items, check_category, create_category, \
     delete_category, update_category, check_item, create_item, add_values_to_item, check_group, update_item, \
     delete_item, check_value, delete_only_items
-from bot.database.models import Permission
-from bot.handlers.other import get_bot_user_ids
-from bot.keyboards import shop_management, goods_management, categories_management, back, item_management, \
+from database.models import Permission
+from handlers.other import get_bot_user_ids
+from keyboards import shop_management, goods_management, categories_management, back, item_management, \
     question_buttons
-from bot.logger_mesh import logger
-from bot.misc import TgConfig
+from logger_mesh import logger
+from misc import TgConfig
 
 
 async def shop_callback_handler(call: CallbackQuery):
