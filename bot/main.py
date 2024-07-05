@@ -3,11 +3,11 @@ import asyncio
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
-from bot.filters import register_all_filters
-from bot.misc import EnvKeys
-from bot.handlers import register_all_handlers
-from bot.database.models import register_models
-from bot.logger_mesh import logger, file_handler
+from .filters import register_all_filters
+from .misc import EnvKeys
+from .handlers import register_all_handlers
+from .database.models import register_models
+from .logger_mesh import logger, file_handler
 
 logger.addHandler(file_handler)
 
